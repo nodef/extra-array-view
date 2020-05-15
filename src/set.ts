@@ -1,11 +1,11 @@
-import index from "@extra-array/index";
-import handler from './_handler';
+import proxy from './_proxy';
+import index from './_index'
 
 function set<T>(x: T[], i: number, v: T): T[] {
-  var i = index(x, i);
-  return new Proxy<T[]>(x, handler(x.length, j => {
-    var j = index(x, j);
+  var X = x.length, i = index(X, i);
+  return proxy(x, () => x.length, (_, j) => {
+    var j = index(X, j);
     return j===i? v : x[j];
-  }));
+  });
 }
 export default set;
