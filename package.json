@@ -1,6 +1,6 @@
 {
   "name": "extra-arrayview",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "An array view is a proxy to an underlying array.",
   "main": "index.js",
   "scripts": {
