@@ -1,11 +1,16 @@
 {
   "name": "extra-arrayview",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "An array view is a proxy to an underlying array.",
   "main": "index.js",
   "scripts": {
+    "einit": "ebuild init",
+    "ecode": "ebuild update --docs false",
+    "eupdate": "ebuild update",
+    "escatter": "ebuild scatter",
     "test": "exit"
   },
+  "runkitExampleFilename": "example.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nodef/extra-arrayview.git"
