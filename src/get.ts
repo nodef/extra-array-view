@@ -1,4 +1,4 @@
-import index from '@extra-array/index';
+import index from './_index';
 
 /**
  * Gets value at index.
@@ -6,6 +6,6 @@ import index from '@extra-array/index';
  * @param i index (0)
  */
 function get<T>(x: T[], i: number=0): T {
-  return x[index(x, i)];
+  return x[index(x.length, i)];
 }
 export default get;
