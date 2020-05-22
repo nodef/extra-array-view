@@ -1,22 +1,34 @@
 import proxy from './_proxy';
 import index from './_index';
 
-function concatLength(xs: any) {
+function concatLength<T>(xs: T[][]): number {
   var a = 0;
   for(var x of xs)
     a += x.length;
   return a;
 }
 
+function concatAt<T>(xs: T[][], i: number): [T[], number] {
+  var X = concatLength(xs);
+  var i = index(X, i);
+  for(var x of xs) {
+    if(i<x.length) return [x, i];
+    i -= x.length;
+  }
+  return [null, -1];
+}
+
+/**
+ * Appends arrays together.
+ * @param xs arrays
+ */
 function concat<T>(...xs: T[][]): T[] {
-  var XS = xs.length;
-  return proxy(xs as any, concatLength, (_, k) => {
-    var A = concatLength(xs), k = index(A, k);
-    for(var i=XS-1, j=A-xs[i].length; i>=0; i--) {
-      console.log({A, k, i, j});
-      if(k>=j) return xs[i][k-j];
-      j -= xs[i].length;
-    }
-  })
+  return proxy(xs as any, () => concatLength(xs), (k) => {
+    var [x, k] = concatAt(xs, k);
+    if(k>=0) return x[k];
+  }, (k, v) => {
+    var [x, k] = concatAt(xs, k);
+    if(k>=0) x[k] = v;
+  });
 }
 export default concat;

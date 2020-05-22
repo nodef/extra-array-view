@@ -1,2 +1,3 @@
-export type getFn<T>    = (x: T[], i: number) => T;
-export type lengthFn<T> = (x: T[]) => number;
+export type lengthFn = () => number;
+export type getFn<T> = (i: number) => T;
+export type setFn<T> = (i: number, v: T) => void;
