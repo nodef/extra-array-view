@@ -1,8 +1,13 @@
 {
   "name": "extra-arrayview",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "An array view is a proxy to an underlying array.",
   "main": "index.js",
+  "module": "index.mjs",
+  "exports": {
+    "require": "./index.js",
+    "import": "./index.mjs"
+  },
   "scripts": {
     "einit": "ebuild init",
     "ecode": "ebuild update --docs false",
@@ -27,7 +32,7 @@
   },
   "homepage": "https://github.com/nodef/extra-arrayview#readme",
   "devDependencies": {
-    "@extra-array/index": "^2.7.6",
-    "extra-build": "^1.0.138"
+    "@extra-array/index": "^2.10.8",
+    "extra-build": "^1.1.27"
   }
 }
