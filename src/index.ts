@@ -40,7 +40,7 @@ class RawArrayView<T> {
   // -------------
 
   /** Get iterator to iterate through values. */
-  get [Symbol.iterator](): IterableIterator<T> {
+  [Symbol.iterator](): IterableIterator<T> {
     return this.base.slice(this.begin, this.end)[Symbol.iterator]();
   }
 
@@ -117,7 +117,7 @@ class RawArrayView<T> {
    * @returns this[i]
    */
   get(i: number): T {
-    return this.base[this.begin + i];
+    if (i>=0 && i<this.length) return this.base[this.begin + i];
   }
 
 
@@ -127,7 +127,7 @@ class RawArrayView<T> {
    * @returns this[i]
    */
   at(i: number): T {
-    return this.base[this.index(i)];
+    if (i>=-this.length && i<this.length) return this.base[this.index(i)];
   }
 
 
@@ -137,7 +137,7 @@ class RawArrayView<T> {
    * @param v value
    */
   set(i: number, v: T): void {
-    this.base[this.begin + i] = v;
+    if (i>=0 && i<this.length) this.base[this.begin + i] = v;
   }
 
 
@@ -420,9 +420,9 @@ class RawArrayView<T> {
    * @param I read end index [|this|]
    */
   copyWithin(j: number, i: number, I: number=this.length): void {
-    var a = this.base.slice(this.begin, this.end);
-    a.copyWithin(j, i, I);  // PERF: Can be optimized?
-    this.base.splice(this.begin, this.end, ...a);
+    var x = this.base.slice(this.begin, this.end);
+    x.copyWithin(j, i, I);  // PERF: Can be optimized?
+    this.base.splice(this.begin, x.length, ...x);
   }
 
 
@@ -527,12 +527,13 @@ export function fromArray<T>(x: T[], i: number=0, I: number=x.length): T[] {
   var y = new RawArrayView(x, i, I);
   return new Proxy<T[]>(x, {
     get(_, k) {
-      if (isFinite(k as any)) { return y.get(Number(k)); }
-      return y[k];
+      if (typeof k==="symbol" || !isFinite(k as any)) return y[k];
+      return y.get(Number(k));
     },
     set(_, k, v) {
-      if (typeof k==="number") y.set(k, v);
-      return false;
+      if (typeof k==="symbol" || !isFinite(k as any)) return false;
+      y.set(Number(k), v);
+      return true;
     },
     ownKeys(x) {
       return Reflect.ownKeys(x);
