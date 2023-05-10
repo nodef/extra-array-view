@@ -1,24 +1,19 @@
 {
-  "name": "extra-arrayview",
-  "version": "0.0.14",
+  "name": "extra-array-view",
+  "version": "0.0.15",
   "description": "An array view is a proxy to an underlying array.",
   "main": "index.js",
   "module": "index.mjs",
+  "sideEffects": false,
   "exports": {
     "require": "./index.js",
     "import": "./index.mjs"
   },
   "scripts": {
-    "einit": "ebuild init",
-    "ecode": "ebuild update --docs false",
-    "eupdate": "ebuild update",
-    "escatter": "ebuild scatter",
-    "test": "exit"
-  },
-  "runkitExampleFilename": "example.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nodef/extra-arrayview.git"
+    "test": "jest",
+    "build": "node ./build",
+    "publish-docs": "node ./build publish-docs",
+    "publish-packages": "node ./build publish-packages"
   },
   "keywords": [
     "extra",
@@ -27,12 +22,23 @@
   ],
   "author": "wolfram77@gmail.com",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodef/extra-arrayview.git"
+  },
   "bugs": {
     "url": "https://github.com/nodef/extra-arrayview/issues"
   },
   "homepage": "https://github.com/nodef/extra-arrayview#readme",
   "devDependencies": {
-    "@extra-array/index": "^2.10.19",
-    "extra-build": "^2.2.41"
+    "@rollup/plugin-commonjs": "^24.1.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@types/jest": "^29.5.1",
+    "extra-array": "^4.1.23",
+    "extra-build": "^2.2.42",
+    "jest": "^29.5.0",
+    "rollup-plugin-cleanup": "^3.2.1",
+    "rollup-plugin-dts": "^5.3.0",
+    "ts-jest": "^29.1.0"
   }
 }
