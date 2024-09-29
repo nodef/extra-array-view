@@ -5,8 +5,6 @@ An [array view] is a proxy to an underlying array.<br>
 📰 [Docs](https://nodef.github.io/extra-array-view/),
 📘 [Wiki](https://github.com/nodef/extra-array-view/wiki/).
 
-![](https://i.imgur.com/46wYtxW.png)
-
 <br>
 
 
