@@ -90,5 +90,6 @@ x;
 [![Test Coverage](https://api.codeclimate.com/v1/badges/b5039bd76147c1625bce/test_coverage)](https://codeclimate.com/github/nodef/extra-array-view/test_coverage)
 <!-- [![DOI](https://zenodo.org/badge/133759104.svg)](https://zenodo.org/badge/latestdoi/133759104) -->
 
+![](https://ga-beacon.deno.dev/G-RC63DPBH3P:SH3Eq-NoQ9mwgYeHWxu7cw/github.com/nodef/extra-array-view)
 
 [fromArray]: https://github.com/nodef/extra-array-view/wiki/fromArray
