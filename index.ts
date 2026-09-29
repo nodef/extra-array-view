@@ -1,10 +1,10 @@
-import {
+import type {
   CompareFunction,
   ProcessFunction,
   TestFunction,
   MapFunction,
   ReduceFunction,
-} from "extra-array";
+} from "@nodef/extra-array";
 
 
 
@@ -93,8 +93,8 @@ class RawArrayView<T> {
    * @returns [i', I'] | i' ≤ I'; i', I' ∈ [0, |this|]
    */
   indexRange(i: number=0, I: number=this.length): [number, number] {
-    var i = i>=0? Math.min(this.begin + i, this.end) : Math.max(this.begin, this.end + i);
-    var I = I>=0? Math.min(this.begin + I, this.end) : Math.max(this.begin, this.end + I);
+    i = i>=0? Math.min(this.begin + i, this.end) : Math.max(this.begin, this.end + i);
+    I = I>=0? Math.min(this.begin + I, this.end) : Math.max(this.begin, this.end + I);
     return [i, Math.max(i, I)];
   }
   // #endregion
@@ -116,7 +116,7 @@ class RawArrayView<T> {
    * @param i index
    * @returns this[i]
    */
-  get(i: number): T {
+  get(i: number): T | undefined {
     if (i>=0 && i<this.length) return this.base[this.begin + i];
   }
 
@@ -126,7 +126,7 @@ class RawArrayView<T> {
    * @param i ±index
    * @returns this[i]
    */
-  at(i: number): T {
+  at(i: number): T | undefined {
     if (i>=-this.length && i<this.length) return this.base[this.index(i)];
   }
 
@@ -153,7 +153,7 @@ class RawArrayView<T> {
    * @param fc compare function (a, b)
    */
   sort(fc: CompareFunction<T>): void {
-    var x = this.base.slice(this.begin, this.end);
+    const x = this.base.slice(this.begin, this.end);
     x.sort(fc);  // PERF: Optimize with rangedSort()?
     this.base.splice(this.begin, x.length, ...x);
   }
@@ -187,7 +187,7 @@ class RawArrayView<T> {
    * @param ths this argument
    * @returns first v | ft(v) = true; v ∈ x
    */
-  find(ft: TestFunction<T>, ths?: any): T {
+  find(ft: TestFunction<T>, ths?: unknown): T | undefined {
     return this.base.slice(this.begin, this.end).find(ft, ths);
   }
 
@@ -205,7 +205,7 @@ class RawArrayView<T> {
    * @param ths this argument
    * @returns first index of value, -1 if not found
    */
-  findIndex(ft: TestFunction<T>, ths?: any): number {
+  findIndex(ft: TestFunction<T>, ths?: unknown): number {
     return this.base.slice(this.begin, this.end).findIndex(ft, ths);
   }
 
@@ -259,7 +259,7 @@ class RawArrayView<T> {
    * @param fn process function (v, i, x)
    * @param ths this argument
    */
-  forEach(fn: ProcessFunction<T>, ths?: any): void {
+  forEach(fn: ProcessFunction<T>, ths?: unknown): void {
     this.base.slice(this.begin, this.end).forEach(fn, ths);
   }
 
@@ -270,7 +270,7 @@ class RawArrayView<T> {
    * @param ths this argument
    * @returns true if ft(vᵢ) = true for some vᵢ ∈ this
    */
-  some(ft: TestFunction<T>, ths?: any): boolean {
+  some(ft: TestFunction<T>, ths?: unknown): boolean {
     return this.base.slice(this.begin, this.end).some(ft, ths);
   }
 
@@ -281,7 +281,7 @@ class RawArrayView<T> {
    * @param ths this argument
    * @returns true if ft(vᵢ) = true for all vᵢ ∈ this
    */
-  every(ft: TestFunction<T>, ths?: any): boolean {
+  every(ft: TestFunction<T>, ths?: unknown): boolean {
     return this.base.slice(this.begin, this.end).every(ft, ths);
   }
 
@@ -292,7 +292,7 @@ class RawArrayView<T> {
    * @param ths this argument
    * @returns [fm(v₀), fm(v₁), ...] | vᵢ ∈ this
    */
-  map(fm: MapFunction<T, T>, ths?: any): T[] {
+  map(fm: MapFunction<T, T>, ths?: unknown): T[] {
     return this.base.slice(this.begin, this.end).map(fm, ths);
   }
 
@@ -304,7 +304,7 @@ class RawArrayView<T> {
    * @returns fr(fr(acc, v₀), v₁)... | fr(acc, v₀) = v₀ if acc not given
    */
   reduce(fr: ReduceFunction<T, T>, init?: T): T {
-    return this.base.slice(this.begin, this.end).reduce(fr, init);
+    return this.base.slice(this.begin, this.end).reduce(fr, init as unknown as T);
   }
 
 
@@ -315,7 +315,7 @@ class RawArrayView<T> {
    * @returns fr(fr(acc, vₓ₋₀), vₓ₋₁)... | fr(acc, vₓ₋₀) = vₓ₋₀ if acc not given
    */
   reduceRight(fr: ReduceFunction<T, T>, init?: T): T {
-    return this.base.slice(this.begin, this.end).reduceRight(fr, init);
+    return this.base.slice(this.begin, this.end).reduceRight(fr, init as unknown as T);
   }
 
 
@@ -325,7 +325,7 @@ class RawArrayView<T> {
    * @param ths this argument
    * @returns [v₀, v₁, ...] | ft(vᵢ) = true; vᵢ ∈ this
    */
-  filter(ft: TestFunction<T>, ths?: any): T[] {
+  filter(ft: TestFunction<T>, ths?: unknown): T[] {
     return this.base.slice(this.begin, this.end).filter(ft, ths);
   }
   // #endregion
@@ -339,7 +339,7 @@ class RawArrayView<T> {
    * @param d depth [1]
    * @returns flat array
    */
-  flat(d: number=1): any[] {
+  flat(d: number=1): unknown[] {
     return this.base.slice(this.begin, this.end).flat(d);
   }
 
@@ -350,7 +350,7 @@ class RawArrayView<T> {
    * @param ths this argument
    * @returns flat array
    */
-  flatMap<U>(fm: MapFunction<T, U>, ths?: any): U[] {
+  flatMap<U>(fm: MapFunction<T, U>, ths?: unknown): U[] {
     return this.base.slice(this.begin, this.end).flatMap(fm, ths);
   }
   // #endregion
@@ -366,7 +366,7 @@ class RawArrayView<T> {
    * @param I end index [|this|]
    */
   fill(v: T, i: number=0, I: number=this.length): void {
-    var [i, I] = this.indexRange(i, I);
+    [i, I] = this.indexRange(i, I);
     this.base.fill(v, i, I);
   }
 
@@ -376,7 +376,7 @@ class RawArrayView<T> {
    * @param vs values to add
    * @returns |this|
    */
-  push(...vs: T[]): number {
+  push(..._vs: T[]): number {
     // NOTE: push() can't be performed on array view.
     return this.length;
   }
@@ -407,7 +407,7 @@ class RawArrayView<T> {
    * @param vs values to add
    * @returns |this|
    */
-  unshift(...vs: T[]): number {
+  unshift(..._vs: T[]): number {
     // NOTE: unshift() can't be performed on array view.
     return this.length;
   }
@@ -420,7 +420,7 @@ class RawArrayView<T> {
    * @param I read end index [|this|]
    */
   copyWithin(j: number, i: number, I: number=this.length): void {
-    var x = this.base.slice(this.begin, this.end);
+    const x = this.base.slice(this.begin, this.end);
     x.copyWithin(j, i, I);  // PERF: Can be optimized?
     this.base.splice(this.begin, x.length, ...x);
   }
@@ -433,7 +433,7 @@ class RawArrayView<T> {
    * @param vs values to insert
    * @returns []
    */
-  splice(i: number, n: number, ...vs: T[]): T[] {
+  splice(_i: number, _n: number, ..._vs: T[]): T[] {
     // NOTE: splice() can't be performed on array view.
     return [];
   }
@@ -474,7 +474,7 @@ class RawArrayView<T> {
    * Reverse the values.
    */
   reverse(): void {
-    var x = this.base.slice(this.begin, this.end);
+    const x = this.base.slice(this.begin, this.end);
     x.reverse();  // PERF: Can be optimized?
     this.base.splice(this.begin, x.length, ...x);
   }
@@ -524,20 +524,20 @@ class RawArrayView<T> {
  * @returns proxy-based array view
  */
 export function fromArray<T>(x: T[], i: number=0, I: number=x.length): T[] {
-  var y = new RawArrayView(x, i, I);
+  const xview = new RawArrayView<T>(x, i, I);
   return new Proxy<T[]>(x, {
     get(_, k) {
-      if (typeof k==="symbol" || !isFinite(k as any)) return y[k];
-      return y.get(Number(k));
+      if (typeof k==="symbol" || !isFinite(Number(k))) return xview[k as keyof RawArrayView<T>];
+      return xview.get(Number(k));
     },
     set(_, k, v) {
-      if (typeof k==="symbol" || !isFinite(k as any)) return false;
-      y.set(Number(k), v);
+      if (typeof k==="symbol" || !isFinite(Number(k))) return false;
+      xview.set(Number(k), v);
       return true;
     },
-    ownKeys(x) {
-      return Reflect.ownKeys(x);
-    }
+    ownKeys(_x) {
+      return [...Array.from({length: xview.length}, (_, n) => String(n)), "length"];
+    },
   });
 }
 export {fromArray as from};

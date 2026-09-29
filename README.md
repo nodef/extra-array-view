@@ -1,9 +1,9 @@
 An [array view] is a proxy to an underlying array.<br>
-📦 [Node.js](https://www.npmjs.com/package/extra-array-view),
-🌐 [Web](https://www.npmjs.com/package/extra-array-view.web),
-📜 [Files](https://unpkg.com/extra-array-view/),
-📰 [Docs](https://nodef.github.io/extra-array-view/),
-📘 [Wiki](https://github.com/nodef/extra-array-view/wiki/).
+
+▌
+📦 [JSR](https://jsr.io/@nodef/extra-array-view),
+📦 [NPM](https://www.npmjs.com/package/extra-array-view),
+📰 [Docs](https://jsr.io/@nodef/extra-array-view/doc).
 
 <br>
 
@@ -13,22 +13,12 @@ array, and any changes made to it are reflected in the underlying array. It is
 similar to a *slice* of an array, but it does not copy the array. To obtain a
 view, use the `fromArray()` function.
 
-With this package, you can simplify the implementation of complex algorithms.
-Try it out today! This package is available in *Node.js* and *Web* formats. To
-use it on the web, simply use the `extra_array_view` global variable after
-loading with a `<script>` tag from the [jsDelivr CDN].
-
-> Stability: [Experimental](https://www.youtube.com/watch?v=L1j93RnIxEo).
-
 [array view]: https://stackoverflow.com/questions/16990064/are-array-views-possible
-[jsDelivr CDN]: https://cdn.jsdelivr.net/npm/extra-array-view.web/index.js
 
 <br>
 
 ```javascript
-const xarrayView = require('extra-array-view');
-// import * as xarrayView from "extra-array-view";
-// import * as xarrayView from "https://unpkg.com/extra-array-view/index.mjs"; (deno)
+import * as xarrayView from "jsr:@nodef/extra-array-view";
 
 var x = [10, 40, 30, 20, 50];
 var y = xarrayView.fromArray(x, 1, 4);
@@ -84,12 +74,9 @@ x;
 <br>
 <br>
 
-[![](https://img.youtube.com/vi/z0ttvjJvh2s/maxresdefault.jpg)](https://www.youtube.com/watch?v=z0ttvjJvh2s)<br>
+[![](https://raw.githubusercontent.com/qb40/designs/gh-pages/0/image/11.png)](https://wolfram77.github.io)<br>
 [![ORG](https://img.shields.io/badge/org-nodef-green?logo=Org)](https://nodef.github.io)
-[![Coverage Status](https://coveralls.io/repos/github/nodef/extra-array-view/badge.svg?branch=master)](https://coveralls.io/github/nodef/extra-array-view?branch=master)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/b5039bd76147c1625bce/test_coverage)](https://codeclimate.com/github/nodef/extra-array-view/test_coverage)
-<!-- [![DOI](https://zenodo.org/badge/133759104.svg)](https://zenodo.org/badge/latestdoi/133759104) -->
-
 ![](https://ga-beacon.deno.dev/G-RC63DPBH3P:SH3Eq-NoQ9mwgYeHWxu7cw/github.com/nodef/extra-array-view)
 
-[fromArray]: https://github.com/nodef/extra-array-view/wiki/fromArray
+
+[fromArray]: https://jsr.io/@nodef/extra-array-view/doc/~/fromArray
