@@ -2,7 +2,7 @@ An [array view] is a proxy to an underlying array.<br>
 
 ▌
 📦 [JSR](https://jsr.io/@nodef/extra-array-view),
-📦 [NPM](https://www.npmjs.com/package/extra-array-view),
+📦 [NPM](https://www.npmjs.com/package/@nodef/extra-array-view),
 📰 [Docs](https://jsr.io/@nodef/extra-array-view/doc).
 
 <br>
